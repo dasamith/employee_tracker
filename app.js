@@ -44,8 +44,8 @@ function starterQ() {
         } else if (answers.commandType === "Add Employees") {
             addEmployee()
         }
-        else if (answers.commandType === "Update Employees") {
-
+        else if (answers.commandType === "Update Employee") {
+            updateEmployee()
         }
 
     });
@@ -136,22 +136,84 @@ function addRole() {
 }
 
 function addEmployee() {
-    var questions = [{
-        type: 'input',
-        name: 'departmentsName',
-        message: "Whats the name of departments that you want to add?",
+    var query = "SELECT * FROM roles";
+    connection.query(query, function (error, results) {
+        if (error) throw error;
+        console.table(results);
+        var roleTitle = []
+        for (let i = 0; i < results.length; i++) {
 
-    },];
-    inquirer.prompt(questions).then(function (answers) {
-        console.log("answer", answers)
+            console.log(results[i].name);
+            roleTitle.push(results[i].title);
 
-        var query = "INSERT INTO departments (name) VALUES (?)"
+        }
 
-        connection.query(query, [answers.departmentsName], function (error, results) {
-            if (error) throw error;
-            console.log('The result from DB!!  ', results);
-        });
-        // save to DB!!! sql time
+        var questions = [
+            {
+                type: 'input',
+                name: 'firstName',
+                message: "Wats the  first name of employee that you want to add?",
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: "Whats the last name  that you want to add?",
+            },
+            {
+                type: 'list',
+                name: 'role',
+                message: "Which role does it belong to ? ",
+                choices: roleTitle
+            },
+
+
+
+
+
+        ];
+
+
+        inquirer.prompt(questions).then(function (answers) {
+            console.log("answer", answers)
+            var roleId;
+
+            for (var i = 0; i < results.length; i++) {
+                if (results[i].title === answers.role) {
+                    roleId = results[i].id
+                }
+            }
+            console.log('this is our role id!!!', roleId)
+
+            var comand = "INSERT INTO employee (first_name, last_name, role_id) VALUES (?,?,?)"
+
+            connection.query(comand, [answers.firstName, answers.lastName, roleId], function (error, results) {
+                if (error) throw error;
+                console.log('The result from DB!!  ', results);
+            });
+            //save to DB!!! sql time
+        })
+
+
+
+
+
+    })
+
+}
+
+function updateEmployee() {
+    // select * to get all the roles
+    // select * to get all the employess
+    // ask inquirere q's
+    //do Update sql comand connection.query()
+
+    var query = "SELECT * FROM roles";
+    connection.query(query, function (error, roleResults) {
+        var query = "SELECT * FROM employee";
+        connection.query(query, function (error, employeeResults) {
+            console.log('this is roles', roleResults, 'this is employees', employeeResults)
+
+        })
     })
 }
 
