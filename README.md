@@ -54,13 +54,10 @@ project still in development phase
 
 ## Installation
 
-https://dasamith.github.io/Employee-Summary/
-
-    To Run the test script: npm run test
     To run the template engine: node app.js
 
 ## Screenshot
-NA
+Terminal Screenshot
 
 ![Screenshot](image/Capture.JPG)
 
@@ -69,11 +66,7 @@ NA
 https://www.npmjs.com/package/inquirer
 
 ## Tests
-project still in development phase and Passes all the test
-
-    To Run the test script: npm run test
-    To run the template engine: node app.js
-
+    N/A
 
 ## Contribute
 
