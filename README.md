@@ -7,6 +7,11 @@ I Created a terminal engine application that allows the user
   * Update employee roles
   * Update employee managers
 
+
+## video presentation 
+    https://drive.google.com/file/d/1OftRVYId7MvPkf7ZqZLf0Ha0raIowRuZ/view
+    https://drive.google.com/file/d/1hgLzIH1U3-DMpoEwWsp5SbLaxhYuhRrd/view
+
 ## Acceptance Criteria
 
     ```
