@@ -63,8 +63,8 @@ Terminal Screenshot
 
 ## API Reference
 
-https://www.npmjs.com/package/inquirer
-https://www.npmjs.com/package/console.table 
+    https://www.npmjs.com/package/inquirer
+    https://www.npmjs.com/package/console.table 
 
 ## Tests
     N/A

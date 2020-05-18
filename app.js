@@ -2,6 +2,9 @@ const inquirer = require("inquirer");
 require('dotenv').config()
 var mysql = require('mysql');
 
+// creating a connection prosses
+// it contains all the connection properties/values
+
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -9,11 +12,17 @@ var connection = mysql.createConnection({
     database: 'employeetracker',
 });
 
+// here we connect to the database using connect() method
+// it will through error if any
 connection.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
 
+
+// this is the openning questions
+//user will be able to select from different options
+// type: list
 function starterQ() {
     var questions = [{
         type: 'list',
@@ -23,6 +32,9 @@ function starterQ() {
     },];
 
 
+    // here we use the user command to perform different actions
+    // like, view departments will execute the first if statement
+    // and display  ViewDepartments() 
     inquirer.prompt(questions).then(function (answers) {
         console.log('these are our answers in the .then!!', answers);
 
@@ -52,6 +64,9 @@ function starterQ() {
 }
 starterQ()
 
+
+// function to add department 
+// the id is auto increamented 
 function addDepartment() {
     var questions = [{
         type: 'input',
@@ -72,6 +87,8 @@ function addDepartment() {
     })
 }
 
+// function to add role 
+// the id is auto increamented 
 function addRole() {
     var query = "SELECT * FROM departments";
 
@@ -104,8 +121,6 @@ function addRole() {
                 message: "Which Dept does it belong to ? ",
                 choices: deptNames
             },
-
-
         ];
 
         inquirer.prompt(questions).then(function (answers) {
@@ -127,14 +142,12 @@ function addRole() {
             });
             //save to DB!!! sql time
         })
-
     });
-
-
-    // 
-
 }
 
+
+// function to add employee 
+// the id is auto increamented 
 function addEmployee() {
     var query = "SELECT * FROM roles";
     connection.query(query, function (error, results) {
@@ -165,11 +178,6 @@ function addEmployee() {
                 message: "Which role does it belong to ? ",
                 choices: roleTitle
             },
-
-
-
-
-
         ];
 
 
@@ -201,6 +209,8 @@ function addEmployee() {
 
 }
 
+// function to update employee
+// the id is auto increamented 
 function updateEmployee() {
     // select * to get all the roles
     // select * to get all the employess
@@ -217,6 +227,7 @@ function updateEmployee() {
     })
 }
 
+// function to view Department
 function ViewDepartments() {
     var query = "SELECT * FROM departments";
 
@@ -227,6 +238,7 @@ function ViewDepartments() {
 
 }
 
+// function to view role
 function ViewRoles() {
     var query = "SELECT * FROM roles";
 
@@ -237,6 +249,7 @@ function ViewRoles() {
 
 }
 
+// function to view employee
 function ViewEmployee() {
     var query = "SELECT * FROM employee";
     connection.query(query, function (error, results) {
