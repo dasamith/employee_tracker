@@ -82,6 +82,7 @@ function addDepartment() {
         connection.query(query, [answers.departmentsName], function (error, results) {
             if (error) throw error;
             console.log('The result from DB!!  ', results);
+            starterQ()
         });
         // save to DB!!! sql time
     })
@@ -139,6 +140,7 @@ function addRole() {
             connection.query(comand, [answers.roleTitle, answers.salary, deptId], function (error, results) {
                 if (error) throw error;
                 console.log('The result from DB!!  ', results);
+                starterQ()
             });
             //save to DB!!! sql time
         })
@@ -197,6 +199,7 @@ function addEmployee() {
             connection.query(comand, [answers.firstName, answers.lastName, roleId], function (error, results) {
                 if (error) throw error;
                 console.log('The result from DB!!  ', results);
+                starterQ()
             });
             //save to DB!!! sql time
         })
@@ -223,6 +226,43 @@ function updateEmployee() {
         connection.query(query, function (error, employeeResults) {
             console.log('this is roles', roleResults, 'this is employees', employeeResults)
 
+            var roleTitle = []
+            for (let i = 0; i < roleResults.length; i++) {
+
+                console.log(roleResults[i].name);
+                roleTitle.push(roleResults[i].title);
+
+            }
+
+            var employeeNames = []
+            for (let i = 0; i < employeeResults.length; i++) {
+
+                console.log(employeeResults[i].first_name);
+                employeeNames.push(employeeResults[i].first_name);
+
+            }
+
+            var updateQuestions = [
+                {
+                    type: 'list',
+                    name: 'updateName',
+                    message: "Wats the  update name of employee that you want to update?",
+                    choices: employeeNames
+
+                },
+                {
+                    type: 'list',
+                    name: 'updateRole',
+                    message: "Wats the new role of employee that you want to update?",
+                    choices: roleTitle
+                }
+            ]
+            console.log('questions about to ask', updateQuestions)
+            inquirer.prompt(updateQuestions).then(function (answers) {
+                console.log('these r anwers to update questions ', answers);
+
+            })
+
         })
     })
 }
@@ -234,6 +274,7 @@ function ViewDepartments() {
     connection.query(query, function (error, results) {
         if (error) throw error;
         console.table(results);
+        starterQ()
     });
 
 }
@@ -245,6 +286,7 @@ function ViewRoles() {
     connection.query(query, function (error, results) {
         if (error) throw error;
         console.table(results);
+        starterQ()
     });
 
 }
@@ -255,5 +297,6 @@ function ViewEmployee() {
     connection.query(query, function (error, results) {
         if (error) throw error;
         console.table(results);
+        starterQ()
     });
 }
